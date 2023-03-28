@@ -5,7 +5,7 @@ import { useState } from 'react'
 export default function Home() {
 
   const [isClicked,setIsClicked]=useState(false)
-  const [todos, settodos] = useState({});
+  const [userData, setUserData] = useState({});
   const [firstRow,setFirstRow]=useState({
     firstName:'',
     lastName:'',
@@ -30,7 +30,7 @@ export default function Home() {
         },
       });
       const data = await response.json();
-      settodos(data)
+      setUserData(data)
       };
   
 
@@ -42,7 +42,7 @@ export default function Home() {
 
   return (
     <>
-      <h2>PDF Editor</h2>
+      <h2>PDF Editor for {userData.name}</h2>
       <div className="grid-container">
       <Box sx={{ width: '100%', background:'#F3F2EF'}}>
         <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
