@@ -1,34 +1,38 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
 import { Box, Button, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Radio, RadioGroup, Select } from '@mui/material'
 import TextField from '@mui/material/TextField';
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export default function Home() {
 
   const [isClicked,setIsClicked]=useState(false)
-  
-
+  const [todos, settodos] = useState({});
   const [firstRow,setFirstRow]=useState({
-    input1:'',
-    input2:'',
-    position:'',
-    workType:''
+    firstName:'',
+    lastName:'',
+    roles:'',
+    time:''
   })
   const [secondRow,setSecondRow]=useState({
-    input3:'',
-    input4:'',
-    position2:'',
-    workType2:''
+    firstName1:'',
+    lastName1:'',
+    roles1:'',
+    time1:''
   })
 
-  function showPDFfn(){
+  const showPDFfn = async () => {
     setIsClicked(true)
     console.log(firstRow);
-
-  }
+      const response = await fetch("/api/hello",{
+        method: "POST",
+        body: JSON.stringify({firstName:firstRow.firstName,lastName:firstRow.lastName,roles:firstRow.roles,time:firstRow.time,firstName1:secondRow.firstName1,lastName1:secondRow.lastName1,roles1:secondRow.roles1,time1:secondRow.time1}),
+        headers: {
+        "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      settodos(data)
+      };
+  
 
   function handleinputChange(e){
     setFirstRow({...firstRow,[e.target.name]:e.target.value});
@@ -75,16 +79,16 @@ export default function Home() {
                             <TextField 
                               id="outlined-basic"  
                               variant="outlined" 
-                              value={firstRow.input1}
+                              value={firstRow.firstName}
                               sx={{mr:2}}
-                              name='input1'
+                              name='firstName'
                               onChange={handleinputChange}
                             />
                             <TextField 
                               id="outlined-basic"  
                               variant="outlined" 
-                              name='input2'
-                              value={firstRow.input2} 
+                              name='lastName'
+                              value={firstRow.lastName} 
                               sx={{mr:2}}                              
                               onChange={handleinputChange}
                             />
@@ -92,8 +96,8 @@ export default function Home() {
                                 <Select
                                   labelId="demo-simple-select-label"
                                   id="demo-simple-select"
-                                  name='position'
-                                  value={firstRow.position}
+                                  name='roles'
+                                  value={firstRow.roles}
                                   onChange={handleinputChange}
                                 >
                                   <MenuItem value='Developer'>Developer</MenuItem>
@@ -110,13 +114,13 @@ export default function Home() {
                                   <RadioGroup
                                     row 
                                     aria-labelledby="demo-row-radio-buttons-group-label"
-                                    name="workType"
-                                    defaultValue="full-time"
-                                    value={firstRow.workType}
+                                    name="time"
+                                    // defaultValue="full-time"
+                                    value={firstRow.time}
                                     onChange={handleinputChange}
                                     >
-                                      <FormControlLabel value="part-time" control={<Radio />} label="part-time" />
-                                      <FormControlLabel value="full-time" control={<Radio />} label="full-time" />
+                                      <FormControlLabel value="parttime" control={<Radio />} label="part-time" />
+                                      <FormControlLabel value="fulltime" control={<Radio />} label="full-time" />
                                   </RadioGroup>
                                 </FormControl>
                           </div>
@@ -127,24 +131,24 @@ export default function Home() {
                               id="outlined-basic"  
                               variant="outlined" 
                               sx={{mr:2}}
-                              name='input3'
-                              value={secondRow.input3}
+                              name='firstName1'
+                              value={secondRow.firstName1}
                               onChange={handleinputChange}
                             />
                             <TextField 
                               id="outlined-basic"  
                               variant="outlined" 
                               sx={{mr:2}}
-                              name='input4'
-                              value={secondRow.input4}
+                              name='lastName1'
+                              value={secondRow.lastName1}
                               onChange={handleinputChange}
                             />
                             <FormControl sx={{  minWidth: 180 }} >
                                 <Select
                                   labelId="demo-simple-select-label"
                                   id="demo-simple-select"
-                                  name='position2'
-                                  value={secondRow.position2}
+                                  name='roles1'
+                                  value={secondRow.roles1}
                                   onChange={handleinputChange}
                                 >
                                   <MenuItem value='Developer'>Developer</MenuItem>
@@ -161,13 +165,13 @@ export default function Home() {
                                   <RadioGroup
                                     row 
                                     aria-labelledby="demo-row-radio-buttons-group-label"
-                                    name="workType2"
-                                    defaultValue="part-time"
-                                    value={secondRow.workType2}
+                                    name="time1"
+                                    // defaultValue="part-time"
+                                    value={secondRow.time1}
                                     onChange={handleinputChange}
                                     >
-                                    <FormControlLabel value="part-time" control={<Radio />} label="part-time" />
-                                    <FormControlLabel value="full-time" control={<Radio />} label="full-time" />
+                                    <FormControlLabel value="parttime" control={<Radio />} label="part-time" />
+                                    <FormControlLabel value="fulltime" control={<Radio />} label="full-time" />
                                   </RadioGroup>
                                 </FormControl>
                           </div>
