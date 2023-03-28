@@ -18,12 +18,6 @@ export async function fillForm(firstName,lastName,roles,time,firstName1,lastName
     const form = pdfDoc.getForm()
 
 
-    const fields = form.getFields()
-    fields.forEach(field => {
-    const type = field.constructor.name
-    const name = field.getName()
-    console.log(`${type}: ${name}`)
-    })
 //   // Get all fields in the PDF by their names
     const firstNameField = form.getTextField('61daa6fb-0143-4faa-9243-790262d903f5firstName')
     const lastNameField = form.getTextField('61daa6fb-0143-4faa-9243-790262d903f5lastName')
@@ -34,29 +28,29 @@ export async function fillForm(firstName,lastName,roles,time,firstName1,lastName
     const lastName1Field = form.getTextField('8a06c958-d66d-4e30-a5b5-41ac3abfdbfclastName')
     const roles1Field = form.getDropdown('8a06c958-d66d-4e30-a5b5-41ac3abfdbfcroles')
     const time1Field = form.getRadioGroup('8a06c958-d66d-4e30-a5b5-41ac3abfdbfctime')
-
+    
+    console.log('data : ', roles, roles1)
 //   // Fill in the basic info fields
-    firstNameField.setText('sam')
-    lastNameField.setText('24 years')
-    rolesField.select('Testing')
-    timeField.select('parttime')
+    firstNameField.setText(firstName)
+    lastNameField.setText(lastName)
+    rolesField.select(roles)
+    timeField.select(time)
 
-    firstName1Field.setText('Ram')
-    lastName1Field.setText('20 years')
-    roles1Field.select('Developer')
-    time1Field.select('fulltime')
+    firstName1Field.setText(firstName1)
+    lastName1Field.setText(lastName1)
+    roles1Field.select(roles1)
+    time1Field.select(time1)
 
 
     // Serialize the PDFDocument to bytes (a Uint8Array)
     const pdfBytes = await pdfDoc.save()
-    let writeStream = fs.createWriteStream('super4.pdf');
+    let writeStream = fs.createWriteStream('final1.pdf');
 
     writeStream.write(pdfBytes, 'base64');
     
     writeStream.on('finish', () => {  
         console.log('saved');
-    });
-    
+    });    
     writeStream.end()
 }
 

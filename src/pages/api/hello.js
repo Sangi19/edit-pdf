@@ -3,7 +3,10 @@
 import { fillForm } from '../../helpers/form'
 
 export default function handler(req, res) {
-  console.log('hello from api:',req.name)
-  fillForm('sam',24,'Developer','parttime','ram',12,'Testing','fulltime')
-  res.status(200).json({ name: 'John Doe' })
+
+  if (req.method === 'POST') {
+    console.log('hello from api:',req.body)  
+    fillForm(req.body.firstName,req.body.lastName,req.body.roles,req.body.time,req.body.firstName1,req.body.lastName1,req.body.roles1,req.body.time1)
+    res.status(200).json({ name: 'John Doe' })
+  }
 }
