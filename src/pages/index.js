@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Radio, RadioGroup, Select } from '@mui/material'
+import { Box, Button, FormControl, FormControlLabel, Grid, MenuItem, Radio, RadioGroup, Select } from '@mui/material'
 import TextField from '@mui/material/TextField';
 import { useState } from 'react'
 
@@ -13,18 +13,17 @@ export default function Home() {
     time:''
   })
   const [secondRow,setSecondRow]=useState({
-    firstName1:'',
-    lastName1:'',
-    roles1:'',
-    time1:''
+    firstNameA:'',
+    lastNameA:'',
+    rolesA:'',
+    timeA:''
   })
 
   const showPDFfn = async () => {
     setIsClicked(true)
-    console.log(firstRow);
-      const response = await fetch("/api/hello",{
+      const response = await fetch("/api/PDFapi",{
         method: "POST",
-        body: JSON.stringify({firstName:firstRow.firstName,lastName:firstRow.lastName,roles:firstRow.roles,time:firstRow.time,firstName1:secondRow.firstName1,lastName1:secondRow.lastName1,roles1:secondRow.roles1,time1:secondRow.time1}),
+        body: JSON.stringify({firstName:firstRow.firstName,lastName:firstRow.lastName,roles:firstRow.roles,time:firstRow.time,firstNameA:secondRow.firstNameA,lastNameA:secondRow.lastNameA,rolesA:secondRow.rolesA,timeA:secondRow.timeA}),
         headers: {
         "Content-Type": "application/json",
         },
@@ -37,7 +36,6 @@ export default function Home() {
   function handleinputChange(e){
     setFirstRow({...firstRow,[e.target.name]:e.target.value});
     setSecondRow({...secondRow,[e.target.name]:e.target.value});
-
   }
 
   return (
@@ -131,24 +129,24 @@ export default function Home() {
                               id="outlined-basic"  
                               variant="outlined" 
                               sx={{mr:2}}
-                              name='firstName1'
-                              value={secondRow.firstName1}
+                              name='firstNameA'
+                              value={secondRow.firstNameA}
                               onChange={handleinputChange}
                             />
                             <TextField 
                               id="outlined-basic"  
                               variant="outlined" 
                               sx={{mr:2}}
-                              name='lastName1'
-                              value={secondRow.lastName1}
+                              name='lastNameA'
+                              value={secondRow.lastNameA}
                               onChange={handleinputChange}
                             />
                             <FormControl sx={{  minWidth: 180 }} >
                                 <Select
                                   labelId="demo-simple-select-label"
                                   id="demo-simple-select"
-                                  name='roles1'
-                                  value={secondRow.roles1}
+                                  name='rolesA'
+                                  value={secondRow.rolesA}
                                   onChange={handleinputChange}
                                 >
                                   <MenuItem value='Developer'>Developer</MenuItem>
@@ -165,9 +163,9 @@ export default function Home() {
                                   <RadioGroup
                                     row 
                                     aria-labelledby="demo-row-radio-buttons-group-label"
-                                    name="time1"
+                                    name="timeA"
                                     // defaultValue="part-time"
-                                    value={secondRow.time1}
+                                    value={secondRow.timeA}
                                     onChange={handleinputChange}
                                     >
                                     <FormControlLabel value="parttime" control={<Radio />} label="part-time" />
