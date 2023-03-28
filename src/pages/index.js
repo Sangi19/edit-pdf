@@ -44,12 +44,12 @@ export default function Home() {
     <>
       <h2>PDF Editor for {userData.name}</h2>
       <div className="grid-container">
-      <Box sx={{ width: '100%', background:'#F3F2EF'}}>
-        <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+      <Box sx={{ width: '100%', background:'#F3F2EF', pt:2}}>
+        <Grid container rowSpacing={4} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={2}>
             <div>
               <Button size="large" variant="contained" 
-              sx={{ml:2}}
+              sx={{ml:4}}
               onClick={showPDFfn}
               > 
                 {
@@ -67,7 +67,7 @@ export default function Home() {
                 p: 4,
                 mb:4,
                 mr:4,
-                minWidth: 1300,
+                maxWidth: 1000,
                 minHeight:750,
                 background:'white'
               }}>                
