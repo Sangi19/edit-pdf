@@ -217,7 +217,7 @@ useEffect(() => {
                   }
                   {
                     (userData.name.length ===0) ? "":(
-                      <Alert variant="filled" severity="success">Please <a href='https://edit-pdf-sangi19.vercel.app/example1.pdf'>click here</a> for result pdf</Alert>
+                      <Alert variant="filled" severity="success">Please <a style={{color:'black'}} href='https://edit-pdf-sangi19.vercel.app/example1.pdf'><strong>click here</strong></a> for result pdf</Alert>
                     )
                   } 
                 </div>
