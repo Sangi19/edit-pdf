@@ -61,7 +61,7 @@ export default function Home() {
           const data = await response.json();
           setUserData(data)    
           
-          alert('the data is created in the path')
+          alert('the data is created under "./public/example1.pdf" ')
           clearData()
         }
     };  

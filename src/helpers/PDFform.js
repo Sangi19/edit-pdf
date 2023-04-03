@@ -38,24 +38,8 @@ export async function fetchPDFFormFields(){
 
 export async function fillPDFForm(firstName,lastName,roles,time,firstNameA,lastNameA,rolesA,timeA) {
     
-    formPdfBytes = await fetch('https://edit-pdf.vercel.app/example.pdf').then(res => res.arrayBuffer())
-        
-    // Load a PDF with form fields    
-    pdfDoc = await PDFDocument.load(formPdfBytes)
-    
-    // Get the form containing all the fields
-    form = pdfDoc.getForm()
-
-    //   // Get all fields in the PDF by their names
-    firstNameFieldA = form.getTextField('61daa6fb-0143-4faa-9243-790262d903f5firstName')
-    lastNameFieldA = form.getTextField('61daa6fb-0143-4faa-9243-790262d903f5lastName')
-    rolesFieldA = form.getDropdown('61daa6fb-0143-4faa-9243-790262d903f5roles')
-    timeFieldA = form.getRadioGroup('61daa6fb-0143-4faa-9243-790262d903f5time')
-    firstNameFieldB = form.getTextField('8a06c958-d66d-4e30-a5b5-41ac3abfdbfcfirstName')
-    lastNameFieldB = form.getTextField('8a06c958-d66d-4e30-a5b5-41ac3abfdbfclastName')
-    rolesFieldB = form.getDropdown('8a06c958-d66d-4e30-a5b5-41ac3abfdbfcroles')
-    timeFieldB = form.getRadioGroup('8a06c958-d66d-4e30-a5b5-41ac3abfdbfctime')
-    //   // Fill in the basic info fields
+    fetchPDFFormFields()
+//   // Fill in the basic info fields
     firstNameFieldA.setText(firstName)
     lastNameFieldA.setText(lastName)
     rolesFieldA.select(roles)
@@ -69,14 +53,14 @@ export async function fillPDFForm(firstName,lastName,roles,time,firstNameA,lastN
     // Serialize the PDFDocument to bytes (a Uint8Array)
     const pdfBytes = await pdfDoc.save()
     //delete file if present
-    let i=0;
+
     //try to add timestamp
-    let writeStream = fs.createWriteStream(`public/example${i}.pdf`);
+    let writeStream = fs.createWriteStream('public/example1.pdf');
 
     writeStream.write(pdfBytes, 'base64');
     
     writeStream.on('finish', () => {  
-        i=i+1
+        console.log('saved');
     });    
     writeStream.end()
 }
@@ -94,7 +78,7 @@ export async function getPDFdata() {
     // Get the form containing all the fields
     form = pdfDoc.getForm()
 
-      // Get all fields in the PDF by their names
+       // Get all fields in the PDF by their names
     firstNameFieldA = form.getTextField('61daa6fb-0143-4faa-9243-790262d903f5firstName')
     values.firstname= firstNameFieldA.getText()
     lastNameFieldA = form.getTextField('61daa6fb-0143-4faa-9243-790262d903f5lastName')
@@ -112,7 +96,7 @@ export async function getPDFdata() {
     values.rolesA= rolesFieldB.getSelected()
     timeFieldB = form.getRadioGroup('8a06c958-d66d-4e30-a5b5-41ac3abfdbfctime')
     values.timeA= timeFieldB.getSelected()
-        //get the text and return the value.
+
     return values;
       
 }
