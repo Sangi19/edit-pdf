@@ -35,7 +35,7 @@ pnpm dev
 - Next js - for frontEnd
 - Node js - for backEnd
 - PDF-Lib - for pdf manipulation
-
+- Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 ## Learn More
 
